@@ -1,0 +1,77 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #1a1a1a;
+  background: #f4f4f5;
+}
+
+#root {
+  padding: 12px;
+  max-width: 520px;
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+}
+
+section {
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  background: #fff;
+  border: 1px solid #e4e4e7;
+  border-radius: 8px;
+}
+
+section h2 {
+  margin: 0 0 8px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #71717a;
+}
+
+pre {
+  margin: 0;
+  font-size: 11px;
+  overflow: auto;
+  max-height: 160px;
+}
+
+.status-waiting {
+  color: #a16207;
+}
+
+.status-ok {
+  color: #15803d;
+}
+
+.candidate-yes {
+  border: 2px solid #16a34a;
+  background: #f0fdf4;
+  font-weight: 600;
+}
+
+.candidate-no {
+  border: 1px solid #e4e4e7;
+  background: #fafafa;
+}
+
+.api-error {
+  color: #b91c1c;
+}
+
+.api-ok {
+  color: #14532d;
+}

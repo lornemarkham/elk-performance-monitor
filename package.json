@@ -1,0 +1,14 @@
+{
+  "name": "elk-performance-monitor",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Chrome extension + mock stack for embedded performance and Eleos SLO demos",
+  "license": "MIT",
+  "scripts": {
+    "build:core": "npm run build --prefix packages/elk-monitor-core",
+    "build:extension": "npm run build --prefix extension",
+    "demo:api": "npm start --prefix mock-api",
+    "demo:iframe": "npm run dev --prefix mock-eleos-iframe",
+    "demo:parent": "npm run dev --prefix mock-parent"
+  }
+}

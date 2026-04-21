@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "ELK Performance Monitor",
+  "version": "0.2.2",
+  "description": "Docked performance panel with parent-page fetch/XHR and error instrumentation.",
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["page-world.js"],
+      "matches": ["http://*/*", "https://*/*"]
+    }
+  ]
+}
