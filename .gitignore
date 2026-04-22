@@ -15,3 +15,20 @@ Thumbs.db
 .idea
 *.pem
 *.crx
+
+# Private / internal folders — must NEVER be pushed publicly
+eleos/
+eleos-frontend/
+
+# Archives and local one-off exports
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.rar
+
+# Local scratch / sandbox
+/tmp/
+/scratch/
+*.local
