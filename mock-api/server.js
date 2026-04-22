@@ -7,6 +7,30 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+// Middleware to add Next.js-like headers
+app.use((req, res, next) => {
+  // Simulate Next.js cache headers
+  const path = req.path
+  
+  // Static assets (immutable, long cache)
+  if (path.startsWith('/_next/static/')) {
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable')
+    res.setHeader('x-nextjs-cache', 'HIT')
+  }
+  // API routes (no cache by default)
+  else if (path.startsWith('/api/')) {
+    res.setHeader('Cache-Control', 'no-store, must-revalidate')
+    res.setHeader('x-nextjs-cache', 'BYPASS')
+  }
+  // Page data (short cache with revalidation)
+  else if (path.includes('/_next/data/')) {
+    res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate')
+    res.setHeader('x-nextjs-cache', Math.random() > 0.3 ? 'HIT' : 'MISS')
+  }
+  
+  next()
+})
+
 function isSevereOrProfound(severity) {
   if (severity == null || typeof severity !== 'string') return false
   const s = severity.trim().toLowerCase()
