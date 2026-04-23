@@ -17,6 +17,12 @@ const handlers = {
   request: handleNetworkEvent,
   error: handleErrorEvent,
   navigation: handleNavigationEvent,
+  interaction: (envelope: Extract<PageBridgeEnvelope, { kind: 'interaction' }>) => {
+    ingestPageMessage(envelope)
+  },
+  milestone: (envelope: Extract<PageBridgeEnvelope, { kind: 'milestone' }>) => {
+    ingestPageMessage(envelope)
+  },
 }
 
 function attachFrameContext(envelope: PageBridgeEnvelope, ctx: FrameContext): PageBridgeEnvelope {
@@ -32,10 +38,25 @@ function attachFrameContext(envelope: PageBridgeEnvelope, ctx: FrameContext): Pa
       payload: { ...envelope.payload, frameType: ctx.frameType, frameUrl: ctx.frameUrl },
     }
   }
-  return {
-    ...envelope,
-    payload: { ...envelope.payload, frameType: ctx.frameType, frameUrl: ctx.frameUrl },
+  if (envelope.kind === 'navigation') {
+    return {
+      ...envelope,
+      payload: { ...envelope.payload, frameType: ctx.frameType, frameUrl: ctx.frameUrl },
+    }
   }
+  if (envelope.kind === 'interaction') {
+    return {
+      ...envelope,
+      payload: { ...envelope.payload, frameType: ctx.frameType, frameUrl: ctx.frameUrl },
+    }
+  }
+  if (envelope.kind === 'milestone') {
+    return {
+      ...envelope,
+      payload: { ...envelope.payload, frameType: ctx.frameType, frameUrl: ctx.frameUrl },
+    }
+  }
+  return envelope
 }
 
 function dispatchEnriched(envelope: PageBridgeEnvelope, ctx: FrameContext): void {

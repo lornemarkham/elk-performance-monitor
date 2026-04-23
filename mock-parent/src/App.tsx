@@ -47,6 +47,23 @@ export function App() {
       window.alert('Age and word recognition must be numbers.')
       return
     }
+
+    // Emit semantic milestone for Journey tracking
+    if ((window as any).__elkMonitor?.emitMilestone) {
+      (window as any).__elkMonitor.emitMilestone(
+        'referral_started',
+        'User clicked "Refer Patient" to begin the implantable referral workflow',
+        {
+          phase: 'User Intent',
+          source: 'Parent App',
+          action: 'Refer Patient button clicked',
+          location: 'Implantable Hearing Solution panel',
+          patientId: form.patientId.trim() || 'unknown',
+          nextStep: 'Open screening questions',
+        },
+      )
+    }
+
     const payload: PatientContextPayload = {
       type: 'patient_context',
       patientId: form.patientId.trim() || 'unknown',

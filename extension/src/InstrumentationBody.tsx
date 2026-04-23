@@ -8,6 +8,7 @@ import { generateAIExplanation, type SessionSignals } from './lib/aiExplain'
 import { computeSessionHealth } from './lib/sessionHealth'
 import { PanelStickyBar, type CombinedHealthUi } from './PanelStickyBar'
 import { SloTabPanel } from './SloTabPanel'
+import { JourneyTab } from './JourneyTab'
 import { ELEOS_DEFAULT_SLOS } from './slo/eleosDefaultSlos'
 import { deriveSessionMetrics } from './slo/deriveSessionMetrics'
 import { evaluateSlos } from './slo/evaluateSlos'
@@ -106,7 +107,7 @@ function errorStorySummary(e: ErrorPayload): string {
   return `${frame} · ${shorten(m, 56)}`
 }
 
-type PanelTab = 'overview' | 'slos' | 'timeline'
+type PanelTab = 'journey' | 'overview' | 'slos' | 'timeline'
 
 type TimelineDetailTab = 'story' | 'requests' | 'errors' | 'messages'
 
@@ -806,6 +807,15 @@ export function InstrumentationBody() {
         <button
           type="button"
           role="tab"
+          aria-selected={panelTab === 'journey'}
+          className={`elk-perf-tab${panelTab === 'journey' ? ' elk-perf-tab--active' : ''}`}
+          onClick={() => setPanelTab('journey')}
+        >
+          Journey
+        </button>
+        <button
+          type="button"
+          role="tab"
           aria-selected={panelTab === 'overview'}
           className={`elk-perf-tab${panelTab === 'overview' ? ' elk-perf-tab--active' : ''}`}
           onClick={() => setPanelTab('overview')}
@@ -832,7 +842,11 @@ export function InstrumentationBody() {
         </button>
       </div>
 
-      {panelTab === 'overview' ? (
+      {panelTab === 'journey' ? (
+        <section className="elk-perf-section" aria-label="Journey">
+          <JourneyTab />
+        </section>
+      ) : panelTab === 'overview' ? (
         <section className="elk-perf-section elk-perf-overview" aria-label="Overview">
           <div className="elk-perf-overview-health-card">
             <div className={`elk-perf-overview-health-pill elk-perf-overview-health-pill--${combinedHealthUi}`}>
