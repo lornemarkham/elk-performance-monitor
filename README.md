@@ -133,5 +133,3 @@ Keep it simple:
 A mock demo environment exists for debugging and demos.
 
 You do NOT need this for normal usage.
-
-If needed, refer to internal docs or the mock folders in this repo.
